@@ -1,0 +1,68 @@
+{
+  "name": "@typhonjs-websocket/client-rpc",
+  "description": "Provides a WebSocket client which implements the 'typhonjs-rpc' sub-protocol.",
+  "version": "0.0.0",
+  "author": "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)",
+  "type": "module",
+  "main": "src/WSClientRPC.js",
+  "module": "src/WSClientRPC.js",
+  "browser": "dist/browser/WSClientRPC.js",
+  "exports": {
+    ".": {
+      "node": "./src/WSClientRPC.js",
+      "browser": "./dist/browser/WSClientRPC.js"
+    },
+    "./package.json": "./package.json",
+    "./types": "./types/index.d.ts"
+  },
+  "contributors": [
+    "Michael Leahy <support@typhonjs.io> (https://github.com/typhonrt)"
+  ],
+  "dependencies": {
+    "@typhonjs-websocket/client": "github:typhonjs-node-websocket/client"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@rollup/plugin-babel": "^5.0.0",
+    "@rollup/plugin-node-resolve": "^13",
+    "@typhonjs-utils/build-test": "^0.1.0",
+    "@typhonjs-utils/build-test-browser": "^0.0.11",
+    "rollup": "^2",
+    "rollup-plugin-dts": "^3.0.0",
+    "rollup-plugin-istanbul": "^3.0.0",
+    "rollup-plugin-sourcemaps": "^0.6.0",
+    "rollup-plugin-terser": "^7"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "types": "./types/index.d.ts",
+  "files": [
+    "/npm-shrinkwrap.json",
+    "/dist",
+    "/src",
+    "/types"
+  ],
+  "homepage": "https://github.com/typhonjs-node-websocket/client-rpc#readme",
+  "keywords": [
+    "typhonjs",
+    "websocket",
+    "eventbus",
+    "client",
+    "rpc"
+  ],
+  "license": "MPL-2.0",
+  "repository": "github:typhonjs-node-websocket/client-rpc",
+  "bugs": "https://github.com/typhonjs-node-websocket/client-rpc/issues",
+  "scripts": {
+    "bundle": "rollup --config",
+    "eslint": "eslint .",
+    "posttest-browser": "nyc report --exclude-after-remap=true --reporter=lcov --reporter=text-summary --report-dir=coverage-browser",
+    "pretest-browser": "rollup --config rollup.config.browser-test.js",
+    "prepublishOnly": "npm run bundle && npm run types && npm run test-node && npm run test-browser",
+    "test-browser": "node ./test/src/browser/run.js",
+    "test-node": "c8 --exclude-after-remap=true --reporter=lcov --reporter=text-summary mocha -colors \"test/src/node/**/*.test.js\" --timeout 16000",
+    "types": "npx -p typescript tsc --project tsconfig.types.json && rollup --config rollup.config.types.js"
+  }
+}
